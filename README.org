@@ -1,55 +1,61 @@
-* DIS Project Backend
+* Champula Backend
 
 ** Quick start
 
  - Make sure =cherrypy= is installed
 
- - In =api.py= change the =config= variable according to Firebase settings.
-
- - In =api.py= change the =config_path= to the absolute path to =api.conf=,
-   i.e. =/home/user/project/backend/api.conf=
-
- - In =api.conf= change the =tools.staticdir.root= variable to also point to
-   the absolute path to =api.conf=
+ - In =api.py= change the =config= variable according to Firebase settings
+   (or add the api key).
 
  - Run with =python api.py=
 
+ - The backend will be served at "localhost:8080"
+
 
 ** Documentation
-*** login
-param: =username=, =password=
+*** Users
+**** =/user/login=
+POST params: =username=, =password=
 
-Will authenticate the user if the user is already registered
+Will authenticate the user if the user is already registered.
 
-*** user_info
+**** =/user/info=
 Dumps the information stored about the authenticated user.
 
 If the user is not authenticated, returns ={"status", "message"}= where
 =status= is =false=.
 
-*** channel
-**** add
-param: =name=
+*** Channels
+**** =/channel/add=
+POST params: =name=
 
 Note: Channels can only be added if the user is authenticated
 
 On failure returns ={"status", "message"}= where status is =false= and
 =message= is the reason.
 
-**** exist
-param: =name= returns 
-
-Returned if channel exists: ={"status": true}=
-
-Returned if channel does not exist: ={"status": false}=
-
-
-**** get
-optional param: =name=
+**** =/channel/get=
+POST params: =name= (optional)
   
-If =name= is set, =get= will return only data for the channel with the
+If =name= is set, will return only data for the channel with the
 specified =name=. Otherwise, a list of all channels will be returned.
 
 On failure returns ={"status", "message"}= where status is =false= and
 =message= is the reason.
+
+*** Events
+**** =/event/add=
+POST params: =name=, =event_type=, =link= (optional), =desc= (optional)
+=tags= (optional) 
+
+Adds an event with the above parameters. Requires the user to be
+authenticated. =tags= is a comma-separated list of tags
+
+**** =/event/get=
+POST params: =event_id= (optional), =tag= (optional)
+
+- If no parameter, returns all events.
+- If =event_id= specified, returns the event with the specified id
+- if =tag= specified, returns a list of events with the specified tag
+
 
