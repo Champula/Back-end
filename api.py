@@ -24,14 +24,10 @@ class DisApi(object):
         self.event = event.Event(self.firebase, self.user)
         self.channel = channel.Channel(self.firebase, self.user)
 
-        
-
-
-
 cherrypy.config.update({
     #'environment': 'production',
     'log.screen': True,
     'server.socket_host': '127.0.0.1',
-    'server.socket_port': 26714,
+    'server.socket_port': 8080,
 })
 cherrypy.quickstart(DisApi(), '/', config_path)
