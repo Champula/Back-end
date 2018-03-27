@@ -4,8 +4,7 @@
 
  - Make sure =cherrypy= is installed
 
- - In =api.py= change the =config= variable according to Firebase settings
-   (or add the api key).
+ - In ~api.py~ change the ~config~ variable according to Firebase settings (or add the api key).
 
  - Run with =python api.py=
 
@@ -15,7 +14,7 @@
 ** Documentation
 *** Users
 **** =/user/login=
-POST params: =username=, =password=
+POST params: ~username~, ~password~
 
 Will authenticate the user if the user is already registered.
 
@@ -23,7 +22,7 @@ Will authenticate the user if the user is already registered.
 Dumps the information stored about the authenticated user.
 
 If the user is not authenticated, returns ={"status", "message"}= where
-=status= is =false=.
+=status= is =false= .
 
 *** Channels
 **** =/channel/add=
@@ -45,8 +44,7 @@ On failure returns ={"status", "message"}= where status is =false= and
 
 *** Events
 **** =/event/add=
-POST params: =name=, =event_type=, =link= (optional), =desc= (optional)
-=tags= (optional) 
+POST params: =name=, =event_type=, =link= (optional), =desc= (optional), =tags= (optional)
 
 Adds an event with the above parameters. Requires the user to be
 authenticated. =tags= is a comma-separated list of tags
