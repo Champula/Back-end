@@ -2,11 +2,12 @@
 
 ** Quick start
 
- - Make sure ~cherrypy~ is installed
+ - Make sure ~cherrypy~ and ~python3~ is installed
 
  - In ~api.py~ change the ~config~ variable according to Firebase settings (or add the api key).
 
- - Run with ~python api.py~
+ - Run with ~python3 api.py~ or just ~python api.py~ if default python
+   version is already python 3.x
 
  - The backend will be served at ~localhost:8080~
 
