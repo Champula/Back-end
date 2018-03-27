@@ -13,17 +13,24 @@
 
 
 ** Documentation
+*** General note
+If any kind of error was detected, the response will be ={"status", "message"}= 
+where =status= is =false=, and the =message= is the reason for the error.
+
 *** Users
+**** =/user/create=
+POST params: ~email~, ~password~
+
+Creates a new user with the defined email and password, and authenticates the
+user. (Hence, no need to authenticate the user afterwards).
+
 **** =/user/login=
-POST params: ~username~, ~password~
+POST params: ~email~, ~password~
 
 Will authenticate the user if the user is already registered.
 
 **** =/user/info=
 Dumps the information stored about the authenticated user.
-
-If the user is not authenticated, returns ={"status", "message"}= where
-=status= is =false= .
 
 *** Channels
 **** =/channel/add=
@@ -31,17 +38,11 @@ POST params: =name=
 
 Note: Channels can only be added if the user is authenticated
 
-On failure returns ={"status", "message"}= where status is =false= and
-=message= is the reason.
-
 **** =/channel/get=
 POST params: =name= (optional)
   
 If =name= is set, will return only data for the channel with the
 specified =name=. Otherwise, a list of all channels will be returned.
-
-On failure returns ={"status", "message"}= where status is =false= and
-=message= is the reason.
 
 *** Events
 **** =/event/add=

@@ -10,20 +10,37 @@ class User(object):
         self.fb = fb
 
     # Login: Authenticates a registered user
-    # params: username, password
+    # params: email, password
     @cherrypy.expose
-    def login(self, username = None, password = None):
-        if username is not None and password is not None:
+    def login(self, email = None, password = None):
+        if email is not None and password is not None:
             try:
                 auth = self.fb.auth()
-                self.obj = auth.sign_in_with_email_and_password(username, password)    
+                self.obj = auth.sign_in_with_email_and_password(email, password)    
                 ret = '{"status": true, "message": "Success"}'
                 return json.dumps(json.loads(ret))
             except:
                 ret = '{"status": false, "message": "Something bad happened"}'
                 return json.dumps(json.loads(ret))
         else:
-            ret = '{"status": false, "message": "Missing username or password"}'
+            ret = '{"status": false, "message": "Missing email or password"}'
+            return json.dumps(json.loads(ret))
+
+    # Create: Creates a user
+    @cherrypy.expose
+    def create(self, email = None, password = None):
+        if email is not None and password is not None:
+            try:
+                auth = self.fb.auth()
+                auth.create_user_with_email_and_password(email, password)
+                auth.sign_in_with_email_and_password(email, password)
+                ret = '{"status": true, "message": "Success"}'
+                return json.dumps(json.loads(ret))
+            except:
+                ret = '{"status": false, "message": "Something bad happened"}'
+                return json.dumps(json.loads(ret))
+        else:
+            ret = '{"status": false, "message": "Missing email or password"}'
             return json.dumps(json.loads(ret))
 
     # User Info: Returns data associated with the authenticated user
